@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+     <form action="\index" method=post>
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+</head>
+{% extends "header.html" %}
+{% block content %}
+<body>
+            <br><h2>{{form.search_topics.label}}</h2>
+            {% for subfield in form.search_topics %}
+            <tr>
+                <td>
+                    {{subfield }}
+                </td>
+                <td>
+                    {{subfield.label }}
+                </td>
+            </tr>
+            {% endfor %}
+            <br><br><h2>{{form.search_learning_modes.label}}</h2>
+            {% for subfield in form.search_learning_modes %}
+            <tr>
+                <td>
+                    {{subfield }}
+                </td>
+                <td>
+                    {{subfield.label }}
+                </td>
+            </tr>
+            {% endfor %}
+            <br><br>{{form.submit(style="width: 200px; left 725px;",class="Search_Button")}}
+
+</body>
+{% endblock content %}
+</html>

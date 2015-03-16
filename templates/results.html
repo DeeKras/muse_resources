@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+     <form action="\get_resource" method=post>
+     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+</head>
+{% extends "header.html" %}
+{% block content %}
+<body>
+
+<h2>Resources in your preferred learning mode: {% for mode in search_learning_modes %}
+                                                - {{mode}} {% endfor %}</h2>
+<input type="submit" value="Find me resources!"(style="width: 200px; left 725px;",class="Search_Button")>
+<table>
+{% for resource in search_results if resource.preferred_modes %}
+    <tr>
+        <td>
+            <input type=radio name=choose_resource value={{resource.short_name}}>
+        </td>
+        <td>
+            <b>{{resource.name}}:</b>
+            {% for topic in resource.topics %}
+                - {{topic}}
+            {% endfor %}
+            {% for mode_icon in resource.modes_icon %}
+                <img src={{mode_icon}} alt="mode_icon" height="25" width="25">
+            {% endfor %}
+        </td>
+    </tr>
+    <tr>
+        <td>
+        </td>
+        <td>
+            <font size="2"; color="black">{{resource.excerpt}}</font>
+            <font size="1"; color="white">{{resource.short_name}}</font>
+        </td>
+    </tr>
+{% endfor %}
+</table>
+<br>
+<h2>Other resources in the topics you chose:</h2>
+<table>
+{% for resource in search_results if not resource.preferred_modes %}
+    <tr>
+        <td>
+            <input type=radio name=choose_resource value={{resource.short_name}}>
+        </td>
+        <td>
+            <b>{{resource.name}}:</b>
+            {% for topic in resource.topics %}
+                - {{topic}}
+            {% endfor %}
+            {% for mode_icon in resource.modes_icon %}
+                <img src={{mode_icon}} alt="mode_icon" height="25" width="25">
+            {% endfor %}
+        </td>
+    </tr>
+    <tr>
+        <td>
+        </td>
+        <td>
+            <font size="2"; color="black">{{resource.excerpt}}</font>
+            <font size="1"; color="white">{{resource.short_name}}</font>
+        </td>
+    </tr>
+{% endfor %}
+<input type="submit" value="Find me resources!"(style="width: 200px; left 725px;",class="Search_Button")>
+</body>
+
+{% endblock content %}
+</html>
